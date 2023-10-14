@@ -20,7 +20,7 @@ npm i
 
 Установить [pgAdmin](https://www.pgadmin.org/)
 
-Создать новую базу данных (например, с названием vtb). Для этого переходим в Servers(слева) -> Databases, нажимаем правой клавишей по Databases, далее нажимаем Create. Вводим название и создаём БД.
+Создать новую базу данных с помощью pgAdmin (например, с названием vtb). Для этого переходим в Servers(слева) -> Databases, нажимаем правой клавишей по Databases, далее нажимаем Create. Вводим название и создаём БД.
 
 Перейти в файл .env и изменить переменную окружения:
 `DATABASE_URL="postgresql://{user_name}:{password}@localhost:5432/{db_name}?schema=public"`
