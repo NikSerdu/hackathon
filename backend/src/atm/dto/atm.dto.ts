@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { IsBoolean, IsNumber, IsString } from 'class-validator'
 import { ServicesDTO } from 'src/services/dto/services.dto'
-export class ATMDto implements Prisma.ATMCreateInput {
+export class ATMDto {
 	@IsString()
 	address: string
 	@IsNumber()
@@ -10,7 +10,7 @@ export class ATMDto implements Prisma.ATMCreateInput {
 	longitude: number
 	@IsBoolean()
 	allDay: boolean
-	services: ServicesDTO
+	Services: ServicesDTO
 }
 
 export class ATMDtoUpdate implements Prisma.ATMUpdateInput {

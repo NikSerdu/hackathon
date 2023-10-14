@@ -1,0 +1,693 @@
+swagger: "2.0"
+info:
+  title: "API"
+  version: "1.0.0"
+host: localhost:3000
+basePath: /api
+
+
+
+
+paths:
+  /atm/{id}:
+    get:
+      tags:
+        - "ATM"
+      summary: "Get ATM by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/ATM"
+  /atm:
+    get:
+      tags:
+        - "ATM"
+      summary: "Get all ATMs"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ATM"
+    post:
+      tags:
+        - "ATM"
+      summary: "Create a new ATM"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ATMDTO"
+      responses:
+        200:
+          description: "ATM created"
+          schema:
+            $ref: "#/definitions/ATM"
+  /services/{id}:
+    get:
+      tags:
+        - "Services"
+      summary: "Get Service by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/Services"
+  /services:
+    get:
+      tags:
+        - "Services"
+      summary: "Get all Services"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Services"
+    post:
+      tags:
+        - "Services"
+      summary: "Create a new Service"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ServicesDTO"
+      responses:
+        200:
+          description: "Service created"
+          schema:
+            $ref: "#/definitions/Services"
+  /task/{id}:
+    get:
+      tags:
+        - "Task"
+      summary: "Get tasks by office ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/Task"
+
+  /task:
+    get:
+      tags:
+        - "Task"
+      summary: "Get all tasks"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Task"
+
+    post:
+      tags:
+        - "Task"
+      summary: "Create a new task"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/TaskDTO"
+      responses:
+        200:
+          description: "Task created"
+          schema:
+            $ref: "#/definitions/Task"
+    put:
+      tags:
+        - "Task"
+      summary: "Add task for office"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/TaskDTOUpdate"
+      responses:
+        200:
+          description: "Task added for the office"
+  /{id}:
+    get:
+      tags:
+        - "Bank Office"
+      summary: "Get Bank Office by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/BankOfficeDTO"
+  /bank-office:
+    get:
+      tags:
+        - "Bank Office"
+      summary: "Get all Bank Offices"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/BankOfficeDTO"
+    post:
+      tags:
+        - "Bank Office"
+      summary: "Create a new Bank Office"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/BankOfficeDTO"
+      responses:
+        201:
+          description: "Bank Office created"
+          schema:
+            $ref: "#/definitions/BankOfficeDTO"
+  /find/{taskId}:
+    get:
+      tags:
+        - "Bank Office"
+      summary: "Get the least loaded Bank Office for a given task"
+      parameters:
+        - name: "taskId"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/BankOfficeDTO"
+  /current-task/{id}:
+    get:
+      tags:
+        - "Current Task"
+      summary: "Get Current Task by Bank Office ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/CurrentTaskDTO"
+    delete:
+      tags:
+        - "Current Task"
+      summary: "Delete Current Task by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int32"
+      responses:
+        200:
+          description: "Current Task deleted"
+  /current-task:
+    post:
+      tags:
+        - "Current Task"
+      summary: "Add Current Task for Bank Office"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CurrentTaskDTO"
+      responses:
+        201:
+          description: "Current Task added for the Bank Office"
+
+
+definitions:
+  ATM:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for the ATM"
+      address:
+        type: "string"
+      latitude:
+        type: "number"
+        format: "float"
+      longitude:
+        type: "number"
+        format: "float"
+      allDay:
+        type: "boolean"
+      Services:
+        type: "object"
+        $ref: "#/definitions/Services"
+    required:
+      - address
+      - latitude
+      - longitude
+      - allDay
+
+  Services:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for the services"
+      wheelchair:
+        type: "object"
+        $ref: "#/definitions/Wheelchair"
+      blind:
+        type: "object"
+        $ref: "#/definitions/Blind"
+      nfcForBankCards:
+        type: "object"
+        $ref: "#/definitions/NFCForBankCards"
+      qrRead:
+        type: "object"
+        $ref: "#/definitions/QRRead"
+      supportsUsd:
+        type: "object"
+        $ref: "#/definitions/SupportsUsd"
+      supportsChargeRub:
+        type: "object"
+        $ref: "#/definitions/SupportsChargeRub"
+      supportsEur:
+        type: "object"
+        $ref: "#/definitions/SupportsEur"
+      supportsRub:
+        type: "object"
+        $ref: "#/definitions/SupportsRub"
+      ATM:
+        type: "array"
+        items:
+          $ref: "#/definitions/ATM"
+      wheelchairId:
+        type: "integer"
+        format: "int32"
+      blindId:
+        type: "integer"
+        format: "int32"
+      nFCForBankCardsId:
+        type: "integer"
+        format: "int32"
+      qRReadId:
+        type: "integer"
+        format: "int32"
+      supportsUsdId:
+        type: "integer"
+        format: "int32"
+      supportsChargeRubId:
+        type: "integer"
+        format: "int32"
+      supportsEurId:
+        type: "integer"
+        format: "int32"
+      supportsRubId:
+        type: "integer"
+        format: "int32"
+    required:
+      - id
+
+  Wheelchair:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Wheelchair services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  Blind:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Blind services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  NFCForBankCards:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for NFC for Bank Cards services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  QRRead:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for QR Read services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  SupportsUsd:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Supports USD services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  SupportsChargeRub:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Supports Charge in RUB services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  SupportsEur:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Supports EUR services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+
+  SupportsRub:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Supports RUB services"
+      serviceCapability:
+        type: "string"
+      serviceActivity:
+        type: "string"
+    required:
+      - serviceCapability
+      - serviceActivity
+  BankOffice:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for the Bank Office"
+      salePointName:
+        type: "string"
+      address:
+        type: "string"
+      status:
+        type: "string"
+      hasRamp:
+        type: "boolean"
+      latitude:
+        type: "number"
+        format: "float"
+      longitude:
+        type: "number"
+        format: "float"
+      openHours:
+        type: "array"
+        items:
+          $ref: "#/definitions/OpenHours"
+      openHoursIndividual:
+        type: "array"
+        items:
+          $ref: "#/definitions/OpenHoursIndividual"
+      tasks:
+        type: "array"
+        items:
+          $ref: "#/definitions/Task"
+      currentTasks:
+        type: "array"
+        items:
+          $ref: "#/definitions/CurrentTask"
+    required:
+      - salePointName
+      - address
+      - status
+      - hasRamp
+      - latitude
+      - longitude
+  OpenHours:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Open Hours"
+      days:
+        type: "string"
+      hours:
+        type: "string"
+      bankOfficeId:
+        type: "integer"
+        format: "int32"
+        description: "The ID of the associated Bank Office"
+    required:
+      - days
+      - hours
+  OpenHoursIndividual:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for Open Hours Individual"
+      days:
+        type: "string"
+      hours:
+        type: "string"
+      bankOfficeId:
+        type: "integer"
+        format: "int32"
+        description: "The ID of the associated Bank Office"
+    required:
+      - days
+      - hours
+  Task:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for the Task"
+      name:
+        type: "string"
+      duration:
+        type: "string"
+      bankOffice:
+        type: "array"
+        items:
+          $ref: "#/definitions/BankOffice"
+      currentTask:
+        type: "array"
+        items:
+          $ref: "#/definitions/CurrentTask"
+    required:
+      - name
+      - duration
+  CurrentTask:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "The unique identifier for the Current Task"
+      bankOfficeId:
+        type: "integer"
+        format: "int32"
+        description: "The ID of the associated Bank Office"
+  TaskDTO:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      duration:
+        type: "string"
+
+  TaskDTOUpdate:
+    type: "object"
+    properties:
+      taskId:
+        type: "integer"
+        format: "int32"
+      officeId:
+        type: "integer"
+        format: "int32"
+  BankOfficeDTO:
+    type: "object"
+    properties:
+      salePointName:
+        type: "string"
+      address:
+        type: "string"
+      status:
+        type: "string"
+      hasRamp:
+        type: "boolean"
+      latitude:
+        type: "number"
+        format: "float"
+      longitude:
+        type: "number"
+        format: "float"
+      openHours:
+        type: "array"
+        items:
+          $ref: "#/definitions/OpenHoursCreateInput"
+      openHoursIndividual:
+        type: "array"
+        items:
+          $ref: "#/definitions/OpenHoursIndividualCreateInput"
+      tasksId:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+  OpenHoursCreateInput:
+    type: "object"
+    properties:
+      days:
+        type: "string"
+      hours:
+        type: "string"
+  OpenHoursIndividualCreateInput:
+    type: "object"
+    properties:
+      days:
+        type: "string"
+      hours:
+        type: "string"
+  CurrentTaskDTO:
+    type: "object"
+    properties:
+      taskId:
+        type: "integer"
+        format: "int32"
+      officeId:
+        type: "integer"
+        format: "int32"
+  ServicesDTO:
+    type: "object"
+    properties:
+      blind:
+        $ref: "#/definitions/ServiceDTO"
+      nfcForBankCards:
+        $ref: "#/definitions/ServiceDTO"
+      qrRead:
+        $ref: "#/definitions/ServiceDTO"
+      supportsChargeRub:
+        $ref: "#/definitions/ServiceDTO"
+      supportsEur:
+        $ref: "#/definitions/ServiceDTO"
+      supportsRub:
+        $ref: "#/definitions/ServiceDTO"
+      supportsUsd:
+        $ref: "#/definitions/ServiceDTO"
+      wheelchair:
+        $ref: "#/definitions/ServiceDTO"
+  ServiceDTO:
+    type: "object"
+    properties:
+      serviceActivity:
+        type: "string"
+        enum: ["AVAILABLE", "UNAVAILABLE", "UNKNOWN"]
+      serviceCapability:
+        type: "string"
+        enum: ["SUPPORTED", "UNSUPPORTED", "UNKNOWN"]
+  ATMDTO:
+    type: "object"
+    properties:
+      address:
+        type: "string"
+      latitude:
+        type: "number"
+        format: "float"
+      longitude:
+        type: "number"
+        format: "float"
+      allDay:
+        type: "boolean"
+      services:
+        $ref: "#/definitions/ServicesDTO"

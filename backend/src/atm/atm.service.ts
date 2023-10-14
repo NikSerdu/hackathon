@@ -27,7 +27,7 @@ export class AtmService {
 	}
 
 	async create(dto: ATMDto) {
-		const newService = await this.services.create(dto.services)
+		const newService = await this.services.create(dto.Services)
 		return this.prisma.aTM.create({
 			data: {
 				address: dto.address,
@@ -40,6 +40,7 @@ export class AtmService {
 					},
 				},
 			},
+			select: ATMObject,
 		})
 	}
 }
