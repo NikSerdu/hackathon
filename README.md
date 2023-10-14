@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Backend
 
 ## Установка
@@ -42,3 +43,7 @@ npm run seed
 ```bash
 npm start
 ```
+=======
+# hackathon
+Для просмотра инструкции по установке backend, перейдите в папку backend.
+>>>>>>> dadb51929c184cc70537e20d4817a549d74d7a65
