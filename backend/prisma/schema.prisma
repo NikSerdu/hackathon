@@ -12,16 +12,16 @@ datasource db {
 // schema.prisma
 
 model ATM {
-  id        Int     @id @default(autoincrement())
-  address   String
-  latitude  Float
-  longitude Float
-  allDay    Boolean
-  services  Service @relation(fields: [serviceId], references: [id])
-  serviceId Int
+  id         Int       @id @default(autoincrement())
+  address    String
+  latitude   Float
+  longitude  Float
+  allDay     Boolean
+  Services   Services? @relation(fields: [servicesId], references: [id])
+  servicesId Int?
 }
 
-model Service {
+model Services {
   id                  Int               @id @default(autoincrement())
   wheelchair          Wheelchair        @relation(fields: [wheelchairId], references: [id])
   blind               Blind             @relation(fields: [blindId], references: [id])
@@ -43,57 +43,102 @@ model Service {
 }
 
 model Wheelchair {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model Blind {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model NFCForBankCards {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model QRRead {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model SupportsUsd {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model SupportsChargeRub {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model SupportsEur {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
 }
 
 model SupportsRub {
-  id                Int       @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   serviceCapability String
   serviceActivity   String
-  Service           Service[]
+  Service           Services[]
+}
+
+model BankOffice {
+  id                  Int                   @id @default(autoincrement())
+  salePointName       String
+  address             String
+  status              String
+  hasRamp             Boolean
+  latitude            Float
+  longitude           Float
+  openHours           OpenHours[]
+  openHoursIndividual OpenHoursIndividual[]
+  tasks               Task[]
+  currentTasks        CurrentTask[]
+}
+
+model OpenHours {
+  id           Int         @id @default(autoincrement())
+  days         String
+  hours        String
+  BankOffice   BankOffice? @relation(fields: [bankOfficeId], references: [id])
+  bankOfficeId Int?
+}
+
+model OpenHoursIndividual {
+  id           Int         @id @default(autoincrement())
+  days         String
+  hours        String
+  BankOffice   BankOffice? @relation(fields: [bankOfficeId], references: [id])
+  bankOfficeId Int?
+}
+
+model Task {
+  id          Int           @id @default(autoincrement())
+  name        String
+  duration    String
+  bankOffice  BankOffice[]
+  currentTask CurrentTask[]
+}
+
+model CurrentTask {
+  id           Int         @id @default(autoincrement())
+  task         Task[]
+  BankOffice   BankOffice? @relation(fields: [bankOfficeId], references: [id])
+  bankOfficeId Int?
 }
