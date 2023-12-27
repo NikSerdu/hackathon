@@ -1,5 +1,5 @@
 # Backend
-
+![ERD diagram](ERD.png)
 ## Установка
 
 Установить [Node.js](https://nodejs.org/ru)
